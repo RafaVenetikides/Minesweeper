@@ -13,15 +13,15 @@ void menu();
 int criaMatriz(int level);
 void mostraCampo(int campo[LIN][COL]);
 void mostraTela(char tela[LIN][COL], int level);
-void preencheCampo(int level, int campo[LIN][COL]);
+void preencheCampo(int, int, int campo[LIN][COL]);
 void preencheTela(int level, char tela[LIN][COL]);
 int abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int k);
 void criaBombas(int campo[LIN][COL], int level);
 
 int main(){
     int level;  //dificuldade selecionada
-    int campo[LIN][COL];    //campo interpretado pelo computador
-    char tela[LIN][COL];    //tela usada pelo usuario
+    int campo[LIN][COL] = {0};    //campo interpretado pelo computador
+    char tela[LIN][COL] = {0};    //tela usada pelo usuario
     int x;  //coordenada x selecionada
     int y;  //coordenada y selecionada
     int row;
@@ -32,8 +32,15 @@ int main(){
     menu();
 
     scanf("%d", &level);
-    if (level >= 1 && level <= 3){
-        preencheCampo(level, campo);
+        if (level >= 1 && level <= 3){
+        switch (level){
+        case 1:
+            row = 9;
+            coll = 9;
+            break;
+        }
+
+        preencheCampo(row, coll, campo);
         preencheTela(level, tela);
         criaBombas(campo, level);
 
@@ -49,6 +56,9 @@ int main(){
             scanf("%d", &x);
             printf("Selecione a coordenada y: ");
             scanf("%d", &y);
+            if (x > row-1 || y > coll-1){
+                exit(1);
+            }
 
             abreCasas(campo, tela, x, y, k);
             printf("\nvalor de k: %d", k);
@@ -93,14 +103,14 @@ void preencheTela(int level, char tela[LIN][COL]){  //Preenche a tela mostrada a
     }
 }
 
-void preencheCampo(int level, int campo[LIN][COL]){   //Preenche o campo interpretado pelo computador
+void preencheCampo(int row, int coll, int campo[LIN][COL]){   //Preenche o campo interpretado pelo computador
     int i;  //linhas
     int j;  //colunas
+    int l, c;
 
-    if (level == 1){
         for (i = 0; i <= (LIN -1); i++){
             for (j = 0; j<= (COL -1); j++){
-                if (i <= 8 && j <= 8){
+                if (i < row && j < coll){
                     campo[i][j] = 0;
                 }
                 else{
@@ -108,26 +118,6 @@ void preencheCampo(int level, int campo[LIN][COL]){   //Preenche o campo interpr
                 }
             }
         }
-    }
-    if (level == 2){
-        for (i = 0; i <= (LIN -1); i++){
-            for (j = 0; j<= (COL -1); j++){
-                if (i <= 15 && j <= 15){
-                    campo[i][j] = 0;
-                }
-                else{
-                    campo[i][j] = 9;
-                }
-            }
-        }
-    }
-    if (level == 3){
-        for (i = 0; i <= (LIN -1); i++){
-            for (j = 0; j<= (COL -1); j++){
-                campo[i][j] = 0;
-            }
-        }
-    }
 }
 
 void mostraCampo(int campo[LIN][COL]){  //Printa o campo interpretado pelo computador
@@ -171,11 +161,7 @@ void mostraTela(char tela[LIN][COL], int level){   //Printa a tela mostrada ao j
 }
 
 int abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int k){   //abre a respectiva coordenada selecionada (TERMINAR)
-    if (x > 16 || y > 30){
-        k = 1;
-        printf("\nQuebra %d\n", k);
-    }
-    else if (campo[x-1][y-1] != -1){
+    if (campo[x-1][y-1] != -1){
         if (campo[x-1][y-1] != 0){
             tela[x-1][y-1] = ("%s", (campo[x-1][y-1] + '0'));
         }
