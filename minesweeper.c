@@ -38,6 +38,14 @@ int main(){
             row = 9;
             coll = 9;
             break;
+        case 2:
+            row = 16;
+            coll = 16;
+            break;
+        case 3:
+            row = 16;
+            coll = 30;
+            break;
         }
 
         preencheCampo(row, coll, campo);
