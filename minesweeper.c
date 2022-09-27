@@ -9,7 +9,6 @@ Dificil = 16x30(99 bombas)
 #define LIN 16
 #define COL 30
 
-
 void menu();
 int criaMatriz(int level);
 void mostraCampo(int campo[LIN][COL]);
@@ -25,6 +24,8 @@ int main(){
     char tela[LIN][COL];    //tela usada pelo usuario
     int x;  //coordenada x selecionada
     int y;  //coordenada y selecionada
+    int row;
+    int coll;
     int k;  //booleano que mantém o jogo rodando
     k = 0;
 
