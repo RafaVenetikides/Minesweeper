@@ -2,8 +2,8 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc.exe arquivo de build ativo",
-            "command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "label": "C/C++: gcc.exe build active file",
+            "command": "D:\\Softwares\\MSYS2\\mingw64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -17,11 +17,8 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Tarefa gerada pelo Depurador."
+            "group": "build",
+            "detail": "compiler: D:\\Softwares\\MSYS2\\mingw64\\bin\\gcc.exe"
         }
     ],
     "version": "2.0.0"
