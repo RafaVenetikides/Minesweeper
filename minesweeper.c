@@ -15,7 +15,7 @@ void mostraCampo(int [LIN][COL], int, int);
 void mostraTela(char [LIN][COL], int, int);
 void preencheCampo(int, int, int [LIN][COL]);
 void preencheTela(int , int, int, char [LIN][COL]);
-int abreCasas(int [LIN][COL], char [LIN][COL], int, int, int);
+int abreCasas(int [LIN][COL], char [LIN][COL], int, int);
 void criaBombas(int [LIN][COL], int, int, int);
 void criaDicas(int [LIN][COL], int, int);
 
@@ -74,7 +74,7 @@ int main(){
                 exit(1);
             }
 
-            abreCasas(campo, tela, x, y, k);
+            abreCasas(campo, tela, x, y);
             printf("\nvalor de k: %d", k);
         }
     }
@@ -154,7 +154,7 @@ void mostraTela(char tela[LIN][COL], int row, int coll){   //Printa a tela mostr
     }
 }
 
-int abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int k){   //abre a respectiva coordenada selecionada (TERMINAR)
+int abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y){   //abre a respectiva coordenada selecionada (TERMINAR)
     if (campo[x-1][y-1] != -1){
         if (campo[x-1][y-1] != 0){
             tela[x-1][y-1] = ("%s", (campo[x-1][y-1] + '0'));
