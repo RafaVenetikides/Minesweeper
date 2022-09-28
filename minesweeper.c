@@ -130,6 +130,12 @@ void mostraCampo(int campo[LIN][COL]){  //Printa o campo interpretado pelo compu
 void mostraTela(char tela[LIN][COL], int row, int coll){   //Printa a tela mostrada ao jogador
     int i;  //linhas
     int j;  //colunas
+    int num;
+    printf("     ");
+    for (num = 0; num < coll; num ++){
+        printf("%2d ", (num+1));
+    }
+    printf("\n");
     for (i = 0; i <= (LIN -1); i++){
         for (j = 0; j<= (COL -1); j++){
                 if (i >= row || j >= coll){
