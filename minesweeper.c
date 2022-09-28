@@ -11,12 +11,13 @@ Dificil = 16x30(99 bombas)
 
 void menu();
 int criaMatriz(int);
-void mostraCampo(int [LIN][COL]);
+void mostraCampo(int [LIN][COL], int, int);
 void mostraTela(char [LIN][COL], int, int);
 void preencheCampo(int, int, int [LIN][COL]);
 void preencheTela(int , int, int, char [LIN][COL]);
 int abreCasas(int [LIN][COL], char [LIN][COL], int, int, int);
 void criaBombas(int [LIN][COL], int, int, int);
+void criaDicas(int [LIN][COL], int, int);
 
 int main(){
     int level;  //dificuldade selecionada
@@ -55,12 +56,13 @@ int main(){
         preencheCampo(row, coll, campo);
         preencheTela(level,row, coll, tela);
         criaBombas(campo, row, coll, bombas);
+        criaDicas(campo, row, coll);
 
         while (k == 0){
             x = 0;
             y = 0;
             printf("Campo: \n");
-            mostraCampo(campo);
+            mostraCampo(campo, row, coll);
             printf("Tela: \n");
             mostraTela(tela, row, coll);
 
@@ -116,11 +118,11 @@ void preencheCampo(int row, int coll, int campo[LIN][COL]){   //Preenche o campo
         }
 }
 
-void mostraCampo(int campo[LIN][COL]){  //Printa o campo interpretado pelo computador
+void mostraCampo(int campo[LIN][COL], int row, int coll){  //Printa o campo interpretado pelo computador
     int i;  //linhas
     int j;  //colunas
-    for (i = 0; i <= (LIN -1); i++){
-        for (j = 0; j<= (COL -1); j++){
+    for (i = 0; i < row; i++){
+        for (j = 0; j< coll; j++){
             printf("[%2d]", campo[i][j]);
         }
         printf("\n");
@@ -176,6 +178,34 @@ void criaBombas(int campo[LIN][COL], int row, int coll, int bombas){  //posicion
         }
         else{
             campo[bombax][bombay] = -1;
+        }
+    }
+}
+
+void criaDicas(int campo[LIN][COL], int row, int coll){
+    int i;
+    int j;
+    int l;
+    int c;
+    int dica;
+
+    for (i = 0; i < row; i++){
+        for (j = 0; j < coll; j++){
+            dica = 0;
+            for (l = (i-1); l <= i+1; l++){
+                for (c = (j-1); c <= (j+1); c++){
+                    if (l >= 0 && c >= 0){
+                        if (l < row && c < coll){
+                            if (campo[l][c] == -1){
+                                dica++;
+                            }
+                        }
+                    }
+                }
+            }
+            if (campo[i][j] != -1){
+                    campo[i][j] = dica;
+                }
         }
     }
 }
