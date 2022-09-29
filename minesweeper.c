@@ -6,6 +6,7 @@ Dificil = 16x30(99 bombas)
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #define LIN 16
 #define COL 30
 
@@ -169,7 +170,7 @@ void criaBombas(int campo[LIN][COL], int row, int coll, int bombas){  //posicion
     int bombax; //coordenada x da bomba
     int bombay; //coordenada y da bomba
     int i;  //numero de bombas
-
+    srand(time(NULL));
     for (i = 0; i< bombas; i++){
         bombax = rand() % row;
         bombay = rand() % coll;
