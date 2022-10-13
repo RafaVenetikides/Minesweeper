@@ -17,7 +17,7 @@ void mostraCampo(int [LIN][COL], int, int);
 void mostraTela(char [LIN][COL], int, int);
 void preencheCampo(int, int, int [LIN][COL]);
 void preencheTela(int , int, int, char [LIN][COL]);
-int abreCasas(int [LIN][COL], char [LIN][COL], int, int);
+int abreCasas(int [LIN][COL], char [LIN][COL], int, int, int, int);
 void criaBombas(int [LIN][COL], int, int, int);
 void criaDicas(int [LIN][COL], int, int);
 
@@ -72,11 +72,11 @@ int main(){
             scanf("%d", &x);
             printf("Selecione a coordenada y: ");
             scanf("%d", &y);
-            if (x > row-1 || y > coll-1){
+            if (x > row || y > coll){
                 exit(1);
             }
 
-            abreCasas(campo, tela, x, y);
+            abreCasas(campo, tela, x, y, row, coll);
             printf("\nvalor de k: %d", k);
         }
     }
@@ -156,16 +156,38 @@ void mostraTela(char tela[LIN][COL], int row, int coll){   //Printa a tela mostr
     }
 }
 
-int abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y){   //abre a respectiva coordenada selecionada (TERMINAR)
+int abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){   //abre a respectiva coordenada selecionada (TERMINAR)
+    int l, c;
     if (campo[x-1][y-1] != -1){
         if (campo[x-1][y-1] != 0){
             tela[x-1][y-1] = ("%s", (campo[x-1][y-1] + '0'));
         }
-        else{
-            tela[x-1][y-1] = ("%s", 32);
+        else if (campo[x-1][y-1] == 0){
+            tela[x-1][y-1] = ' ';
+            for (l = (x-2); l <= x; l++){
+                for (c = (y-2); c <= (y); c++){
+                    if (l >= 0 && c >= 0){
+                        if (l < row && c < coll){
+                            if (l == (x-1) && c == (y-1)){
+                                c++;
+                            }
+                            if (tela[l][c] != ' '){
+                                tela[l][c] = ' ';
+                                printf("l = %d, c = %d\n", l, c);
+                                mostraCampo(campo, row, coll);
+                                printf("\n");
+                                mostraTela(tela, row, coll);
+                                printf("\n");
+                                abreCasas(campo, tela, l, c, row, coll);
+                            }
+                        }
+                    }
+                }
+            }
         }
-    }   
-}
+    }
+}   
+
 
 void criaBombas(int campo[LIN][COL], int row, int coll, int bombas){  //posiciona as bombas no campo
     int bombax; //coordenada x da bomba
