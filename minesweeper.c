@@ -17,9 +17,10 @@ void mostraCampo(int [LIN][COL], int, int);
 void mostraTela(char [LIN][COL], int, int);
 void preencheCampo(int, int, int [LIN][COL]);
 void preencheTela(int , int, int, char [LIN][COL]);
-int abreCasas(int [LIN][COL], char [LIN][COL], int, int, int, int);
+void abreCasas(int [LIN][COL], char [LIN][COL], int, int, int, int);
 void criaBombas(int [LIN][COL], int, int, int);
 void criaDicas(int [LIN][COL], int, int);
+void abreZeros(int [LIN][COL], char [LIN][COL], int, int, int, int);
 
 int main(){
     int level;  //dificuldade selecionada
@@ -77,7 +78,6 @@ int main(){
             }
 
             abreCasas(campo, tela, x, y, row, coll);
-            printf("\nvalor de k: %d", k);
         }
     }
     return 0;
@@ -156,38 +156,32 @@ void mostraTela(char tela[LIN][COL], int row, int coll){   //Printa a tela mostr
     }
 }
 
-int abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){   //abre a respectiva coordenada selecionada (TERMINAR)
-    int l, c;
+void abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){   //abre a respectiva coordenada selecionada (TERMINAR)
     if (campo[x-1][y-1] != -1){
         if (campo[x-1][y-1] != 0){
             tela[x-1][y-1] = ("%s", (campo[x-1][y-1] + '0'));
         }
-        else if (campo[x-1][y-1] == 0){
+        if (campo[x-1][y-1] == 0){
             tela[x-1][y-1] = ' ';
-            for (l = (x-2); l <= x; l++){
-                for (c = (y-2); c <= (y); c++){
-                    if (l >= 0 && c >= 0){
-                        if (l < row && c < coll){
-                            if (l == (x-1) && c == (y-1)){
-                                c++;
-                            }
-                            if (tela[l][c] != ' '){
-                                tela[l][c] = ' ';
-                                printf("l = %d, c = %d\n", l, c);
-                                mostraCampo(campo, row, coll);
-                                printf("\n");
-                                mostraTela(tela, row, coll);
-                                printf("\n");
-                                abreCasas(campo, tela, l, c, row, coll);
-                            }
-                        }
+            abreZeros(campo, tela, x, y, row, coll);
+        }
+    }
+}
+
+void abreZeros(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){
+    int i, j;
+    for (i = (x-2); i <= x; i++){
+        for (j = (y-2); j <= y; j++){
+            if (i >= 0 && j >= 0){
+                if (i < row && j < coll){
+                    if (tela[i][j] != ' '){
+                        abreCasas(campo, tela, (i+1), (j+1), row, coll);
                     }
                 }
             }
         }
     }
-}   
-
+}
 
 void criaBombas(int campo[LIN][COL], int row, int coll, int bombas){  //posiciona as bombas no campo
     int bombax; //coordenada x da bomba
