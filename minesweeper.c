@@ -21,6 +21,8 @@ void abreCasas(int [LIN][COL], char [LIN][COL], int, int, int, int);
 void criaBombas(int [LIN][COL], int, int, int);
 void criaDicas(int [LIN][COL], int, int);
 void abreZeros(int [LIN][COL], char [LIN][COL], int, int, int, int);
+void posicionaBandeira(char [LIN][COL], int, int);
+void gameOver(int [LIN][COL], char [LIN][COL], int, int);
 
 int main(){
     int level;  //dificuldade selecionada
@@ -32,6 +34,7 @@ int main(){
     int coll;   //numero de colunas do jogo
     int bombas; //numero de bomabs do jogo
     int k;  //booleano que mantém o jogo rodando
+    char escolha;
     k = 0;
 
     menu();
@@ -72,20 +75,41 @@ int main(){
         while (k == 0){
             x = 0;
             y = 0;
+            escolha = 'a';
+            printf("\n");
             printf("Campo: \n");
             mostraCampo(campo, row, coll);
             printf("Tela: \n");
             mostraTela(tela, row, coll);
+            printf("\n");
 
             printf("Selecione a coordenada x: ");
             scanf("%d", &x);
             printf("Selecione a coordenada y: ");
             scanf("%d", &y);
+            printf("Abrir a casa(a) ou colocar uma flag(f)? ");
+            scanf("%s", &escolha);
+            
+            if (escolha == 'a'){
+                if (campo[x-1][y-1] == -1){
+                    printf("Bomba explodiu!\n");
+                    gameOver(campo, tela, row, coll);
+                    mostraTela(tela, row, coll);
+                    printf("GAME OVER!");
+                    exit(1);
+                }
+                else{
+                    abreCasas(campo, tela, x, y, row, coll);
+                }
+            }
+            else if (escolha == 'f'){
+                posicionaBandeira(tela, x, y);
+            }
             if (x > row || y > coll){
                 exit(1);
             }
 
-            abreCasas(campo, tela, x, y, row, coll);
+            
         }
     }
     return 0;
@@ -148,12 +172,9 @@ void mostraTela(char tela[LIN][COL], int row, int coll){   //Printa a tela mostr
         printf("%2d ", (num+1));
     }
     printf("\n");
-    for (i = 0; i <= (LIN -1); i++){
-        for (j = 0; j<= (COL -1); j++){
-                if (i >= row || j >= coll){
-                printf("\0");
-                }
-                else if (j == 0){
+    for (i = 0; i < row; i++){
+        for (j = 0; j< coll; j++){
+                if (j == 0){
                     printf("%2d | [%1c]", (i+1), tela[i][j]);
                 }
                 else{
@@ -232,6 +253,22 @@ void criaDicas(int campo[LIN][COL], int row, int coll){     //posiciona as dicas
             if (campo[i][j] != -1){
                     campo[i][j] = dica;
                 }
+        }
+    }
+}
+
+void posicionaBandeira(char tela[LIN][COL], int x, int y){
+    tela[x-1][y-1] = 'f';
+}
+
+void gameOver(int campo[LIN][COL], char tela[LIN][COL], int row, int coll){
+    int i,j;
+
+    for (i = 0; i < row; i++){
+        for (j = 0; j < coll; j++){
+            if (campo[i][j] == -1){
+                tela[i][j] = '*';
+            }
         }
     }
 }
