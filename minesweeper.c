@@ -94,7 +94,7 @@ int main(){
 void menu(){    //Printar menu
     printf("\n | MINESWEEPER |\nFeito por: Rafael Honorio Venetikides\n");
     printf("\nSelecione a dificuldade: ");
-    printf("\n    1 - I'm too young to die.\n    2 - Hurt me plenty.\n    3 - Ultra-Violence.\n    4 - Free mode.\n    0 - Sair.\n");
+    printf("\n    1 - Fácil.\n    2 - Médio.\n    3 - Difícil.\n    4 - Modo livre.\n    0 - Sair.\n");
 }
 
 void preencheTela(int level,int row, int coll, char tela[LIN][COL]){  //Preenche a tela mostrada ao jogador
