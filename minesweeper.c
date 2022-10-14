@@ -37,7 +37,7 @@ int main(){
     menu();
 
     scanf("%d", &level);
-        if (level >= 1 && level <= 3){
+        if (level >= 1 && level <= 4){
         switch (level){
         case 1:
             row = 9;
@@ -53,6 +53,14 @@ int main(){
             row = 16;
             coll = 30;
             bombas = 99;
+            break;
+        case 4:
+            printf("Escolha a quantidade de linhas (máx. 16): ");
+            scanf("%d", &row);
+            printf("Escolha a quantidade de linhas (máx. 30): ");
+            scanf("%d", &coll);
+            printf("Escolha a quantidade de bombas: ");
+            scanf("%d", &bombas);
             break;
         }
 
@@ -86,7 +94,7 @@ int main(){
 void menu(){    //Printar menu
     printf("\n | MINESWEEPER |\nFeito por: Rafael Honorio Venetikides\n");
     printf("\nSelecione a dificuldade: ");
-    printf("\n    1 - I'm too young to die.\n    2 - Hurt me plenty.\n    3 - Ultra-Violence.\n    0 - Sair\n");
+    printf("\n    1 - I'm too young to die.\n    2 - Hurt me plenty.\n    3 - Ultra-Violence.\n    4 - Free mode.\n    0 - Sair.\n");
 }
 
 void preencheTela(int level,int row, int coll, char tela[LIN][COL]){  //Preenche a tela mostrada ao jogador
