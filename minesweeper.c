@@ -28,9 +28,9 @@ int main(){
     char tela[LIN][COL] = {0};    //tela usada pelo usuario
     int x;  //coordenada x selecionada
     int y;  //coordenada y selecionada
-    int row;
-    int coll;
-    int bombas;
+    int row;    //numero de linhas do jogo
+    int coll;   //numero de colunas do jogo
+    int bombas; //numero de bomabs do jogo
     int k;  //booleano que mantém o jogo rodando
     k = 0;
 
@@ -38,7 +38,7 @@ int main(){
 
     scanf("%d", &level);
         if (level >= 1 && level <= 4){
-        switch (level){
+        switch (level){     //switch baseado na dificuldade selecionada
         case 1:
             row = 9;
             coll = 9;
@@ -164,7 +164,7 @@ void mostraTela(char tela[LIN][COL], int row, int coll){   //Printa a tela mostr
     }
 }
 
-void abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){   //abre a respectiva coordenada selecionada (TERMINAR)
+void abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){   //abre a respectiva coordenada selecionada
     if (campo[x-1][y-1] != -1){
         if (campo[x-1][y-1] != 0){
             tela[x-1][y-1] = ("%s", (campo[x-1][y-1] + '0'));
@@ -176,7 +176,7 @@ void abreCasas(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, 
     }
 }
 
-void abreZeros(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){
+void abreZeros(int campo[LIN][COL], char tela[LIN][COL], int x, int y, int row, int coll){      //navega as casas em volta caso um espaço vazio seja aberto
     int i, j;
     for (i = (x-2); i <= x; i++){
         for (j = (y-2); j <= y; j++){
@@ -208,7 +208,7 @@ void criaBombas(int campo[LIN][COL], int row, int coll, int bombas){  //posicion
     }
 }
 
-void criaDicas(int campo[LIN][COL], int row, int coll){
+void criaDicas(int campo[LIN][COL], int row, int coll){     //posiciona as dicas no campo
     int i;
     int j;
     int l;
