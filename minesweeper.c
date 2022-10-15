@@ -34,6 +34,7 @@ int main(){
     int row;    //numero de linhas do jogo
     int coll;   //numero de colunas do jogo
     int bombas; //numero de bombas do jogo
+    int nbombas;
     int k;  //booleano que mantém o jogo rodando
     int v;
     char escolha;
@@ -68,7 +69,7 @@ int main(){
             scanf("%d", &bombas);
             break;
         }
-
+        nbombas = bombas;
         preencheCampo(row, coll, campo);
         preencheTela(level,row, coll, tela);
         criaBombas(campo, row, coll, bombas);
@@ -90,9 +91,7 @@ int main(){
             printf("Selecione a coordenada y: ");
             scanf("%d", &y);
             printf("Abrir a casa(a) ou colocar uma flag(f)? ");
-            printf("\n bombas = %d \n", bombas);
             scanf("%s", &escolha);  //variavel bombas está sendo alterada por algum motivo após este scanf
-            printf("\n bombas = %d \n", bombas);
 
             if (escolha == 'a'){
                 if (campo[x-1][y-1] == -1){
@@ -112,8 +111,7 @@ int main(){
             if (x > row || y > coll){
                 exit(1);
             }
-            v = vitoria(campo, tela, row, coll, bombas);
-            printf("v = %d, bombas = %d\n", v, bombas);
+            v = vitoria(campo, tela, row, coll, nbombas);
             if (v == 1){
                 printf("Voce venceu!");
                 exit(1);
@@ -268,7 +266,12 @@ void criaDicas(int campo[LIN][COL], int row, int coll){     //posiciona as dicas
 }
 
 void posicionaBandeira(char tela[LIN][COL], int x, int y){
-    tela[x-1][y-1] = 'f';
+    if (tela[x-1][y-1] == '-'){
+        tela[x-1][y-1] = 'f';
+    }
+    else if(tela[x-1][y-1] == 'f'){
+        tela[x-1][y-1] = '-';
+    }
 }
 
 void gameOver(int campo[LIN][COL], char tela[LIN][COL], int row, int coll){
@@ -299,7 +302,6 @@ int vitoria(int campo[LIN][COL], char tela[LIN][COL], int row, int coll, int bom
             }
         }
     }
-    printf("bandeiras = %d, bandeiras corretas = %d, bombas = %d", bandeiras, bandeirascorretas, bombas);
     if (bandeiras == bombas && bandeiras == bandeirascorretas){
         return 1;
     }
