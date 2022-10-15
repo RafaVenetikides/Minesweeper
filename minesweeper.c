@@ -23,6 +23,7 @@ void criaDicas(int [LIN][COL], int, int);
 void abreZeros(int [LIN][COL], char [LIN][COL], int, int, int, int);
 void posicionaBandeira(char [LIN][COL], int, int);
 void gameOver(int [LIN][COL], char [LIN][COL], int, int);
+int vitoria(int [LIN][COL], char [LIN][COL], int, int, int);
 
 int main(){
     int level;  //dificuldade selecionada
@@ -32,8 +33,9 @@ int main(){
     int y;  //coordenada y selecionada
     int row;    //numero de linhas do jogo
     int coll;   //numero de colunas do jogo
-    int bombas; //numero de bomabs do jogo
+    int bombas; //numero de bombas do jogo
     int k;  //booleano que mantém o jogo rodando
+    int v;
     char escolha;
     k = 0;
 
@@ -75,7 +77,7 @@ int main(){
         while (k == 0){
             x = 0;
             y = 0;
-            escolha = 'a';
+
             printf("\n");
             printf("Campo: \n");
             mostraCampo(campo, row, coll);
@@ -88,8 +90,10 @@ int main(){
             printf("Selecione a coordenada y: ");
             scanf("%d", &y);
             printf("Abrir a casa(a) ou colocar uma flag(f)? ");
-            scanf("%s", &escolha);
-            
+            printf("\n bombas = %d \n", bombas);
+            scanf("%s", &escolha);  //variavel bombas está sendo alterada por algum motivo após este scanf
+            printf("\n bombas = %d \n", bombas);
+
             if (escolha == 'a'){
                 if (campo[x-1][y-1] == -1){
                     printf("Bomba explodiu!\n");
@@ -106,6 +110,12 @@ int main(){
                 posicionaBandeira(tela, x, y);
             }
             if (x > row || y > coll){
+                exit(1);
+            }
+            v = vitoria(campo, tela, row, coll, bombas);
+            printf("v = %d, bombas = %d\n", v, bombas);
+            if (v == 1){
+                printf("Voce venceu!");
                 exit(1);
             }
 
@@ -270,5 +280,30 @@ void gameOver(int campo[LIN][COL], char tela[LIN][COL], int row, int coll){
                 tela[i][j] = '*';
             }
         }
+    }
+}
+
+int vitoria(int campo[LIN][COL], char tela[LIN][COL], int row, int coll, int bombas){
+    int bandeirascorretas, bandeiras, i, j;
+    bandeirascorretas = 0;
+    bandeiras = 0;
+    for (i = 0; i< row; i++){
+        for (j = 0; j< coll; j++){
+            if (tela[i][j] == 'f'){
+                bandeiras += 1;
+            }
+            if (campo[i][j] == -1){
+                if (tela[i][j] == 'f'){
+                    bandeirascorretas += 1;
+                }
+            }
+        }
+    }
+    printf("bandeiras = %d, bandeiras corretas = %d, bombas = %d", bandeiras, bandeirascorretas, bombas);
+    if (bandeiras == bombas && bandeiras == bandeirascorretas){
+        return 1;
+    }
+    else{
+        return 0;
     }
 }
