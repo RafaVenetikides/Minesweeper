@@ -80,8 +80,6 @@ int main(){
             y = 0;
 
             printf("\n");
-            printf("Campo: \n");
-            mostraCampo(campo, row, coll);
             printf("Tela: \n");
             mostraTela(tela, row, coll);
             printf("\n");
@@ -113,6 +111,7 @@ int main(){
             }
             v = vitoria(campo, tela, row, coll, nbombas);
             if (v == 1){
+                mostraTela(tela, row, coll);
                 printf("Voce venceu!");
                 exit(1);
             }
