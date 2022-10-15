@@ -34,7 +34,6 @@ int main(){
     int row;    //numero de linhas do jogo
     int coll;   //numero de colunas do jogo
     int bombas; //numero de bombas do jogo
-    int nbombas;
     int k;  //booleano que mantém o jogo rodando
     int v;
     char escolha;
@@ -69,7 +68,6 @@ int main(){
             scanf("%d", &bombas);
             break;
         }
-        nbombas = bombas;
         preencheCampo(row, coll, campo);
         preencheTela(level,row, coll, tela);
         criaBombas(campo, row, coll, bombas);
@@ -89,7 +87,7 @@ int main(){
             printf("Selecione a coordenada y: ");
             scanf("%d", &y);
             printf("Abrir a casa(a) ou colocar uma flag(f)? ");
-            scanf("%s", &escolha);  //variavel bombas está sendo alterada por algum motivo após este scanf
+            scanf(" %c", &escolha);  //variavel bombas está sendo alterada por algum motivo após este scanf
 
             if (escolha == 'a'){
                 if (campo[x-1][y-1] == -1){
@@ -109,7 +107,7 @@ int main(){
             if (x > row || y > coll){
                 exit(1);
             }
-            v = vitoria(campo, tela, row, coll, nbombas);
+            v = vitoria(campo, tela, row, coll, bombas);
             if (v == 1){
                 mostraTela(tela, row, coll);
                 printf("Voce venceu!");
