@@ -87,7 +87,7 @@ int main(){
             printf("Selecione a coordenada y: ");
             scanf("%d", &y);
             printf("Abrir a casa(a) ou colocar uma flag(f)? ");
-            scanf(" %c", &escolha);  //variavel bombas está sendo alterada por algum motivo após este scanf
+            scanf(" %c", &escolha);
 
             if (escolha == 'a'){
                 if (campo[x-1][y-1] == -1){
@@ -262,7 +262,7 @@ void criaDicas(int campo[LIN][COL], int row, int coll){     //posiciona as dicas
     }
 }
 
-void posicionaBandeira(char tela[LIN][COL], int x, int y){
+void posicionaBandeira(char tela[LIN][COL], int x, int y){      //coloca ou retira uma bandeira de um local selecionado
     if (tela[x-1][y-1] == '-'){
         tela[x-1][y-1] = 'f';
     }
@@ -271,7 +271,7 @@ void posicionaBandeira(char tela[LIN][COL], int x, int y){
     }
 }
 
-void gameOver(int campo[LIN][COL], char tela[LIN][COL], int row, int coll){
+void gameOver(int campo[LIN][COL], char tela[LIN][COL], int row, int coll){     //define a condição de derrota do jogo
     int i,j;
 
     for (i = 0; i < row; i++){
@@ -283,7 +283,7 @@ void gameOver(int campo[LIN][COL], char tela[LIN][COL], int row, int coll){
     }
 }
 
-int vitoria(int campo[LIN][COL], char tela[LIN][COL], int row, int coll, int bombas){
+int vitoria(int campo[LIN][COL], char tela[LIN][COL], int row, int coll, int bombas){       //define a condição de vitória do jogo
     int bandeirascorretas, bandeiras, i, j;
     bandeirascorretas = 0;
     bandeiras = 0;
