@@ -35,8 +35,8 @@ int main(){
     int coll;   //numero de colunas do jogo
     int bombas; //numero de bombas do jogo
     int k;  //booleano que mantém o jogo rodando
-    int v;
-    char escolha;
+    int v;  //verifica a vitória
+    char escolha;   //escolha entre abrir casa ou colocar bandeira
     k = 0;
 
     menu();
